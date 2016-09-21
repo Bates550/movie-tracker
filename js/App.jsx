@@ -1,12 +1,23 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+import { search } from './endpoints/search';
 import movies from './exampleData'
 import { Row } from './Row'
 
 class App extends React.Component {
   constructor (props) {
     super(props)
+    this.state = {
+      result: {},
+    };
+  }
+
+  componentDidMount() {
+    const result = search('Bourne');
+    result.then((response) => {
+      this.setState({ result: response.data });
+    })
   }
 
   render () {
@@ -17,6 +28,7 @@ class App extends React.Component {
             <th>Poster</th>
             <th>Title (Year)</th>
             <th>Runtime</th>
+            <th>{JSON.stringify(this.state.result)}</th>
           </tr>
         </thead>
         <tbody>
