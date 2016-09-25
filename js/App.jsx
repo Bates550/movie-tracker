@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import SearchBar from 'react-search-bar';
 
 import { search } from './endpoints/search';
 import movies from './exampleData'
@@ -20,33 +21,33 @@ class App extends React.Component {
     })
   }
 
+  getTitlesFromResponse(response) {
+    const searchResults = response.data.Search;
+    const responseExists =
+      response.data.Response === "True" ? true : false;
+    if (Array.isArray(searchResults) && responseExists) {
+      return searchResults.map((movie) => {
+        return movie.Title;
+      });
+    }
+    return [];
+  }
+
+   
+
   render () {
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>Poster</th>
-            <th>Title (Year)</th>
-            <th>Runtime</th>
-            <th>{JSON.stringify(this.state.result)}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            movies.map( (movie) => {
-              return (
-                <Row
-                  imgUrl={movie.Poster}
-                  title={movie.Title}
-                  year={movie.Year}
-                  runtime={movie.Runtime}
-                  key={movie.imdbID}
-                />
-              )
+      <SearchBar 
+        onChange={(input, resolve) => {
+          if (input.length > 1) {
+            search(input).then((response) => {
+              const titles = this.getTitlesFromResponse(response);
+              console.log(titles);
+              resolve(titles);
             })
           }
-        </tbody>
-      </table>
+        }}
+      />
     )
   }
 }
