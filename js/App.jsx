@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import SearchBar from 'react-search-bar';
+import SearchBar from './SearchBar/SearchBar.jsx';
 
 import { search } from './endpoints/search';
 import movies from './exampleData'
