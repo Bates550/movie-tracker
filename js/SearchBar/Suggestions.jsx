@@ -34,11 +34,13 @@ class Suggestions extends React.Component {
         className="search-bar-suggestions"
         onMouseLeave={() => this.setState({activeItem: -1})}>
         {suggestions.map((suggestion, index) => {
+          const lowerSearchTerm = searchTerm.toLowerCase()
           const lowerSuggestion = suggestion.toLowerCase();
-          const searchTermStartIndex = lowerSuggestion.indexOf(searchTerm);
-          const searchTermEndIndex = searchTermStartIndex + searchTerm.length;
+          const searchTermStartIndex = lowerSuggestion.indexOf(lowerSearchTerm);
+          const searchTermEndIndex = searchTermStartIndex + lowerSearchTerm.length;
           const leftSuggestionFragment = suggestion.substring(0, searchTermStartIndex);
           const rightSuggestionFragment = suggestion.substring(searchTermEndIndex);
+          // debugger;
           return (
             <li
               className={classNames({
