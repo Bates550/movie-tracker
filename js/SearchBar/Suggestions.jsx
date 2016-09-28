@@ -40,7 +40,6 @@ class Suggestions extends React.Component {
           const searchTermEndIndex = searchTermStartIndex + lowerSearchTerm.length;
           const leftSuggestionFragment = suggestion.substring(0, searchTermStartIndex);
           const rightSuggestionFragment = suggestion.substring(searchTermEndIndex);
-          // debugger;
           return (
             <li
               className={classNames({
