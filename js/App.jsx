@@ -23,14 +23,9 @@ class App extends React.Component {
   getTitlesFromResponse(response) {
     const searchResults = response.data.Search;
 
-    const responseExists =
-      response.data.Response === "True" ? true : false;
-    if (Array.isArray(searchResults) && responseExists) {
-      return searchResults.map((movie) => {
-        return movie.Title;
-      });
-    }
-    return [];
+    return searchResults.map((movie) => {
+      return movie.Title;
+    });
   }
 
   findMovieInSearchResults(title) {
@@ -56,9 +51,9 @@ class App extends React.Component {
                 const responseIsValid = !response.data.Error;
                 if (responseIsValid) {
                   this.setState({ searchResults: response.data.Search });
+                  const titles = this.getTitlesFromResponse(response);
+                  resolve(titles);
                 }
-                const titles = this.getTitlesFromResponse(response);
-                resolve(titles);
               });
             }
           }}
