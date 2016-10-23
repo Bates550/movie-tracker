@@ -7,52 +7,52 @@ import movies from './exampleData'
 import { Row } from './Row'
 
 class App extends React.Component {
- constructor(props) {
-   super(props)
-   this.state = {
-     movieList: [],
-     id: []
-   };
- }
+  constructor(props) {
+    super(props)
+    this.state = {
+      movieList: [],
+      id: []
+    };
+  }
 
 
- getTitlesFromResponse(response) {
-   const searchResults = response.data.Search;
-   const responseExists =
-     response.data.Response === "True" ? true : false;
-   if (Array.isArray(searchResults) && responseExists) {
-     return searchResults.map((movie) => {
-       return movie.Title;
-     });
-   }
-   return [];
- }
+  getTitlesFromResponse(response) {
+    const searchResults = response.data.Search;
+    const responseExists =
+      response.data.Response === "True" ? true : false;
+    if (Array.isArray(searchResults) && responseExists) {
+      return searchResults.map((movie) => {
+        return movie.Title;
+      });
+    }
+    return [];
+  }
 
- render () {
-   return (
-     <div>
-       <ul>
-         {this.state.movieList.map((movie) => {
-           return <li>{movie}</li>
-         })}
-       </ul>
-       <SearchBar
-         onChange={(input, resolve) => {
-           if (input.length > 1) {
-             search(input).then((response) => {
-               const titles = this.getTitlesFromResponse(response);
-               resolve(titles);
-             })
-           }
-         }}
-         onSearch={(searchTerm) => {
-           const movieList = this.state.movieList.concat(searchTerm);
-           this.setState({ movieList });
-         }}
-       />
-     </div>
-   )
- }
+  render () {
+    return (
+      <div>
+        <ul>
+          {this.state.movieList.map((movie) => {
+            return <li>{movie}</li>
+          })}
+        </ul>
+        <SearchBar
+          onChange={(input, resolve) => {
+            if (input.length > 1) {
+              search(input).then((response) => {
+                const titles = this.getTitlesFromResponse(response);
+                resolve(titles);
+              })
+            }
+          }}
+          onSearch={(searchTerm) => {
+            const movieList = this.state.movieList.concat(searchTerm);
+            this.setState({ movieList });
+          }}
+        />
+      </div>
+    )
+  }
 }
 
 ReactDOM.render(<App/>, document.getElementById('app'));
