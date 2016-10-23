@@ -7,19 +7,14 @@ import movies from './exampleData'
 import { Row } from './Row'
 
 class App extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
-      result: {},
+      movieList: [],
+      id: []
     };
   }
 
-  componentDidMount() {
-    const result = search('Bourne');
-    result.then((response) => {
-      this.setState({ result: response.data });
-    })
-  }
 
   getTitlesFromResponse(response) {
     const searchResults = response.data.Search;
@@ -33,23 +28,31 @@ class App extends React.Component {
     return [];
   }
 
-   
-
   render () {
     return (
-      <SearchBar 
-        onChange={(input, resolve) => {
-          if (input.length > 1) {
-            search(input).then((response) => {
-              const titles = this.getTitlesFromResponse(response);
-              console.log(titles);
-              resolve(titles);
-            })
-          }
-        }}
-      />
+      <div>
+        <ul>
+          {this.state.movieList.map((movie) => {
+            return <li>{movie}</li>
+          })}
+        </ul>
+        <SearchBar
+          onChange={(input, resolve) => {
+            if (input.length > 1) {
+              search(input).then((response) => {
+                const titles = this.getTitlesFromResponse(response);
+                resolve(titles);
+              })
+            }
+          }}
+          onSearch={(searchTerm) => {
+            const movieList = this.state.movieList.concat(searchTerm);
+            this.setState({ movieList });
+          }}
+        />
+      </div>
     )
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App/>, document.getElementById('app'));
