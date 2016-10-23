@@ -26,7 +26,6 @@ class App extends React.Component {
     const responseExists =
       response.data.Response === "True" ? true : false;
     if (Array.isArray(searchResults) && responseExists) {
-
       return searchResults.map((movie) => {
         return movie.Title;
       });
@@ -34,12 +33,17 @@ class App extends React.Component {
     return [];
   }
 
+  findMovieInSearchResults(title) {
+    return this.state.searchResults.find((searchResult) => {
+      return searchResult.Title === title;
+    });
+  }
+
   render () {
     return (
       <div>
         <ul>
           {this.state.movieList.map((movie) => {
-            console.log(movie);
             return (
               <li key={movie.imdbID}>{movie.Title} ({movie.Year})</li>
             )
@@ -49,22 +53,19 @@ class App extends React.Component {
           onChange={(input, resolve) => {
             if (input.length > 1) {
               search(input).then((response) => {
-                //check if response is valid
-                if (!response.data.Error) {
+                const responseIsValid = !response.data.Error;
+                if (responseIsValid) {
                   this.setState({ searchResults: response.data.Search });
                 }
                 const titles = this.getTitlesFromResponse(response);
                 resolve(titles);
-              })
+              });
             }
           }}
-          onSearch={(movieTitle) => {
-            console.log(this.state)
-            const movieData = this.state.searchResults.find((searchResult) => {
-              return searchResult.Title === movieTitle;
-            });
-            if (movieData) {
-              this.addToMovieList(movieData)
+          onSearch={(title) => {
+            const data = this.findMovieInSearchResults(title);
+            if (data !== undefined) {
+              this.addToMovieList(data)
             }
           }}
         />
