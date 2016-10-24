@@ -15,13 +15,11 @@ class App extends React.Component {
       searchResults: [],
     };
   }
-<<<<<<< HEAD
-=======
+
   addToMovieList(movieData) {
     const movieList = this.state.movieList.concat(movieData);
     this.setState({ movieList });
   }
->>>>>>> 151eebcd8a372dd8a80d78975608232eb0b4acbd
 
   getTitlesFromResponse(response) {
     const searchResults = response.data.Search;
