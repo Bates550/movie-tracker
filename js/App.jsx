@@ -15,6 +15,7 @@ class App extends React.Component {
       searchResults: [],
     };
   }
+
   addToMovieList(movieData) {
     const movieList = this.state.movieList.concat(movieData);
     this.setState({ movieList });
@@ -34,13 +35,29 @@ class App extends React.Component {
     });
   }
 
+  removeMovie(movieToRemove) {
+    const movieList = this.state.movieList.filter((movie) => {
+      return movie.imdbID !== movieToRemove.imdbID;
+    });
+    this.setState({ movieList });
+  }
+
   render () {
     return (
       <div>
         <ul>
           {this.state.movieList.map((movie) => {
             return (
-              <li key={movie.imdbID}>{movie.Title} ({movie.Year})</li>
+              <li key={movie.imdbID}>
+                {movie.Title} ({movie.Year})
+                <button
+                  onClick={() => {
+                    this.removeMovie(movie);
+                  }}
+                >
+                  Remove
+                </button>
+              </li>
             )
           })}
         </ul>
