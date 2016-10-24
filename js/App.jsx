@@ -9,22 +9,32 @@ import { Row } from './Row'
 class App extends React.Component {
   constructor(props) {
     super(props)
+    this.addToMovieList = this.addToMovieList.bind(this);
     this.state = {
       movieList: [],
-      id: []
+      searchResults: [],
     };
   }
+<<<<<<< HEAD
+=======
+  addToMovieList(movieData) {
+    const movieList = this.state.movieList.concat(movieData);
+    this.setState({ movieList });
+  }
+>>>>>>> 151eebcd8a372dd8a80d78975608232eb0b4acbd
 
   getTitlesFromResponse(response) {
     const searchResults = response.data.Search;
-    const responseExists =
-      response.data.Response === "True" ? true : false;
-    if (Array.isArray(searchResults) && responseExists) {
-      return searchResults.map((movie) => {
-        return movie.Title;
-      });
-    }
-    return [];
+
+    return searchResults.map((movie) => {
+      return movie.Title;
+    });
+  }
+
+  findMovieInSearchResults(title) {
+    return this.state.searchResults.find((searchResult) => {
+      return searchResult.Title === title;
+    });
   }
 
   removeMovie(movieToRemove) {
@@ -57,14 +67,20 @@ class App extends React.Component {
           onChange={(input, resolve) => {
             if (input.length > 1) {
               search(input).then((response) => {
-                const titles = this.getTitlesFromResponse(response);
-                resolve(titles);
-              })
+                const responseIsValid = !response.data.Error;
+                if (responseIsValid) {
+                  this.setState({ searchResults: response.data.Search });
+                  const titles = this.getTitlesFromResponse(response);
+                  resolve(titles);
+                }
+              });
             }
           }}
-          onSearch={(searchTerm) => {
-            const movieList = this.state.movieList.concat(searchTerm);
-            this.setState({ movieList });
+          onSearch={(title) => {
+            const data = this.findMovieInSearchResults(title);
+            if (data !== undefined) {
+              this.addToMovieList(data)
+            }
           }}
         />
       </div>
