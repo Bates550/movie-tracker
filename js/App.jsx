@@ -15,7 +15,6 @@ class App extends React.Component {
     };
   }
 
-
   getTitlesFromResponse(response) {
     const searchResults = response.data.Search;
     const responseExists =
@@ -28,12 +27,30 @@ class App extends React.Component {
     return [];
   }
 
+  removeMovie(movieToRemove) {
+    const movieList = this.state.movieList.filter((movie) => {
+      return movie.imdbID !== movieToRemove.imdbID;
+    });
+    this.setState({ movieList });
+  }
+
   render () {
     return (
       <div>
         <ul>
           {this.state.movieList.map((movie) => {
-            return <li>{movie}</li>
+            return (
+              <li key={movie.imdbID}>
+                {movie.Title} ({movie.Year})
+                <button
+                  onClick={() => {
+                    this.removeMovie(movie);
+                  }}
+                >
+                  Remove
+                </button>
+              </li>
+            )
           })}
         </ul>
         <SearchBar
