@@ -9,14 +9,14 @@ import { Row } from './Row'
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.addToMovieList = this.addToMovieList.bind(this);
+    this.addMovie = this.addMovie.bind(this);
     this.state = {
       movieList: [],
       searchResults: [],
     };
   }
 
-  addToMovieList(movieData) {
+  addMovie(movieData) {
     const movieList = this.state.movieList.concat(movieData);
     this.setState({ movieList });
   }
@@ -77,7 +77,7 @@ class App extends React.Component {
           onSearch={(title) => {
             const data = this.findMovieInSearchResults(title);
             if (data !== undefined) {
-              this.addToMovieList(data)
+              this.addMovie(data)
             }
           }}
         />
