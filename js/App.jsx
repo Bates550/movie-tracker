@@ -19,7 +19,7 @@ class App extends React.Component {
   addMovie(movieData) {
     const movieNotInList = !this.isMovieInList(movieData);
     if (movieNotInList) {
-      this.addToMovieList(movieData);
+      this.updateMovieList(movieData);
     } else {
       // Set some info/error state to show error to user
       console.log(`${movieData.Title} already exists in list`);
@@ -33,7 +33,7 @@ class App extends React.Component {
     return foundMovie !== undefined;
   }
 
-  addToMovieList(movieData) {
+  updateMovieList(movieData) {
     const updatedMovieList = this.state.movieList.concat(movieData);
     this.setState({ movieList: updatedMovieList });
   }
