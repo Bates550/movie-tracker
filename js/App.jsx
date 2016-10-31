@@ -9,17 +9,20 @@ import { Row } from './Row'
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.attemptToAddToMovieList = this.attemptToAddToMovieList.bind(this);
+    this.addMovie = this.addMovie.bind(this);
     this.state = {
       movieList: [],
       searchResults: [],
     };
   }
 
-  attemptToAddToMovieList(movieData) {
+  addMovie(movieData) {
     const movieNotInList = !this.isMovieInList(movieData);
     if (movieNotInList) {
-      this.addToMovieList(movieData);
+      this.updateMovieList(movieData);
+    } else {
+      // Set some info/error state to show error to user
+      console.log(`${movieData.Title} already exists in list`);
     }
   }
 
@@ -30,7 +33,7 @@ class App extends React.Component {
     return foundMovie !== undefined;
   }
 
-  addToMovieList(movieData) {
+  updateMovieList(movieData) {
     const updatedMovieList = this.state.movieList.concat(movieData);
     this.setState({ movieList: updatedMovieList });
   }
@@ -91,7 +94,7 @@ class App extends React.Component {
           onSearch={(title) => {
             const data = this.findMovieInSearchResults(title);
             if (data !== undefined) {
-              this.attemptToAddToMovieList(data)
+              this.addMovie(data)
             }
           }}
         />
