@@ -17,8 +17,22 @@ class App extends React.Component {
   }
 
   addMovie(movieData) {
-    const movieList = this.state.movieList.concat(movieData);
-    this.setState({ movieList });
+    const movieNotInList = !this.isMovieInList(movieData);
+    if (movieNotInList) {
+      this.addToMovieList(movieData);
+    }
+  }
+
+  isMovieInList(movieData) {
+    const foundMovie = this.state.movieList.find((movie) => {
+      return movie.imdbID === movieData.imdbID;
+    });
+    return foundMovie !== undefined;
+  }
+
+  addToMovieList(movieData) {
+    const updatedMovieList = this.state.movieList.concat(movieData);
+    this.setState({ movieList: updatedMovieList });
   }
 
   getTitlesFromResponse(response) {
