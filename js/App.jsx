@@ -9,23 +9,30 @@ import { Row } from './Row'
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.addToMovieList = this.addToMovieList.bind(this);
+    this.attemptToAddToMovieList = this.attemptToAddToMovieList.bind(this);
     this.state = {
       movieList: [],
       searchResults: [],
     };
   }
 
-  addToMovieList(movieData) {
-    const { movieList } = this.state;
-    const foundMovie = movieList.find((movie) => {
+  attemptToAddToMovieList(movieData) {
+    const movieNotInList = !this.isMovieInList(movieData);
+    if (movieNotInList) {
+      this.addToMovieList(movieData);
+    }
+  }
+
+  isMovieInList(movieData) {
+    const foundMovie = this.state.movieList.find((movie) => {
       return movie.imdbID === movieData.imdbID;
     });
-    const movieNotInList = foundMovie === undefined;
-    if (movieNotInList) {
-      const updatedMovieList = movieList.concat(movieData);
-      this.setState({ movieList: updatedMovieList });
-    }
+    return foundMovie !== undefined;
+  }
+
+  addToMovieList(movieData) {
+    const updatedMovieList = this.state.movieList.concat(movieData);
+    this.setState({ movieList: updatedMovieList });
   }
 
   getTitlesFromResponse(response) {
@@ -84,7 +91,7 @@ class App extends React.Component {
           onSearch={(title) => {
             const data = this.findMovieInSearchResults(title);
             if (data !== undefined) {
-              this.addToMovieList(data)
+              this.attemptToAddToMovieList(data)
             }
           }}
         />
