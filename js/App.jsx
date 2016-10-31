@@ -20,6 +20,9 @@ class App extends React.Component {
     const movieNotInList = !this.isMovieInList(movieData);
     if (movieNotInList) {
       this.addToMovieList(movieData);
+    } else {
+      // Set some info/error state to show error to user
+      console.log(`${movieData.Title} already exists in list`);
     }
   }
 
