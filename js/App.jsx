@@ -41,9 +41,13 @@ class App extends React.Component {
   getTitlesFromResponse(response) {
     const searchResults = response.data.Search;
 
-    return searchResults.map((movie) => {
-      return movie.Title;
-    });
+    return searchResults
+      .filter((searchResult) => {
+        return searchResult.Type === 'movie';
+      })
+      .map((movie) => {
+        return movie.Title;
+      });
   }
 
   findMovieInSearchResults(title) {
