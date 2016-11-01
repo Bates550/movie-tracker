@@ -4,7 +4,7 @@ import SearchBar from './SearchBar/SearchBar.jsx';
 
 import { search } from './endpoints/search';
 import movies from './exampleData'
-import { Row } from './Row'
+import MovieListItem from './MovieListItem';
 
 class App extends React.Component {
   constructor(props) {
@@ -63,20 +63,12 @@ class App extends React.Component {
     return (
       <div>
         <ul>
-          {this.state.movieList.map((movie) => {
-            return (
-              <li key={movie.imdbID}>
-                {movie.Title} ({movie.Year})
-                <button
-                  onClick={() => {
-                    this.removeMovie(movie);
-                  }}
-                >
-                  Remove
-                </button>
-              </li>
-            )
-          })}
+          {this.state.movieList.map((movie) =>
+            <MovieListItem
+              movie={movie}
+              onRemove={removeMovie}
+            />
+          )}
         </ul>
         <SearchBar
           onChange={(input, resolve) => {
