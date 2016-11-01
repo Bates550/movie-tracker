@@ -52,11 +52,14 @@ class App extends React.Component {
     });
   }
 
-  removeMovie(movieToRemove) {
-    const movieList = this.state.movieList.filter((movie) => {
-      return movie.imdbID !== movieToRemove.imdbID;
-    });
-    this.setState({ movieList });
+  removeMovie(that) {
+    return (movieToRemove) => {
+      debugger;
+      const movieList = that.state.movieList.filter((movie) => {
+        return movie.imdbID !== movieToRemove.imdbID;
+      });
+      that.setState({ movieList });
+    }
   }
 
   render () {
@@ -65,8 +68,9 @@ class App extends React.Component {
         <ul>
           {this.state.movieList.map((movie) =>
             <MovieListItem
+              key={movie.imdbID}
               movie={movie}
-              onRemove={removeMovie}
+              onRemove={this.removeMovie(this)}
             />
           )}
         </ul>
