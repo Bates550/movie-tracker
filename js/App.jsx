@@ -10,6 +10,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.addMovie = this.addMovie.bind(this);
+    this.removeMovie = this.removeMovie.bind(this);
     this.state = {
       movieList: [],
       searchResults: [],
@@ -52,14 +53,11 @@ class App extends React.Component {
     });
   }
 
-  removeMovie(that) {
-    return (movieToRemove) => {
-      debugger;
-      const movieList = that.state.movieList.filter((movie) => {
-        return movie.imdbID !== movieToRemove.imdbID;
-      });
-      that.setState({ movieList });
-    }
+  removeMovie(movieToRemove) {
+    const movieList = this.state.movieList.filter((movie) => {
+      return movie.imdbID !== movieToRemove.imdbID;
+    });
+    this.setState({ movieList });
   }
 
   render () {
@@ -70,7 +68,7 @@ class App extends React.Component {
             <MovieListItem
               key={movie.imdbID}
               movie={movie}
-              onRemove={this.removeMovie(this)}
+              onRemove={this.removeMovie}
             />
           )}
         </ul>
