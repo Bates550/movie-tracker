@@ -9,15 +9,13 @@ import MovieListItem from './MovieListItem';
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.addMovie = this.addMovie.bind(this);
-    this.removeMovie = this.removeMovie.bind(this);
     this.state = {
       movieList: [],
       searchResults: [],
     };
   }
 
-  addMovie(movieData) {
+  addMovie = (movieData) => {
     const movieNotInList = !this.isMovieInList(movieData);
     if (movieNotInList) {
       this.updateMovieList(movieData);
@@ -53,7 +51,7 @@ class App extends React.Component {
     });
   }
 
-  removeMovie(movieToRemove) {
+  removeMovie = (movieToRemove) => {
     const movieList = this.state.movieList.filter((movie) => {
       return movie.imdbID !== movieToRemove.imdbID;
     });
