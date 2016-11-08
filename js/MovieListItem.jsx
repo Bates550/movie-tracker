@@ -6,9 +6,7 @@ const MovieListItem = ({ movie, onRemove }) => {
       {movie.Title}
       ({movie.Year})
       <button
-        onClick={() => {
-          onRemove(movie)
-        }}
+        onClick={onRemove(movie)}
       >Remove</button>
     </li>
   );

@@ -52,13 +52,16 @@ class App extends React.Component {
   }
 
   removeMovie = (movieToRemove) => {
-    const movieList = this.state.movieList.filter((movie) => {
-      return movie.imdbID !== movieToRemove.imdbID;
-    });
-    this.setState({ movieList });
+    return () => {
+      const movieList = this.state.movieList.filter((movie) => {
+        return movie.imdbID !== movieToRemove.imdbID;
+      });
+      this.setState({ movieList });
+    }
   }
 
   render () {
+    console.log(this.state.movieList);
     return (
       <div>
         <ul>
