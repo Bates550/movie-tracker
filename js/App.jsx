@@ -4,7 +4,7 @@ import SearchBar from './SearchBar/SearchBar.jsx';
 
 import { search } from './endpoints/search';
 import movies from './exampleData'
-import MovieListItem from './MovieListItem';
+import MovieList from './MovieList';
 
 class App extends React.Component {
   constructor(props) {
@@ -64,15 +64,10 @@ class App extends React.Component {
     console.log(this.state.movieList);
     return (
       <div>
-        <ul>
-          {this.state.movieList.map((movie) =>
-            <MovieListItem
-              key={movie.imdbID}
-              movie={movie}
-              onRemove={this.removeMovie}
-            />
-          )}
-        </ul>
+        <MovieList
+          list={this.state.movieList}
+          onRemove={this.removeMovie}
+        />
         <SearchBar
           onChange={(input, resolve) => {
             if (input.length > 1) {
