@@ -2,13 +2,15 @@ import React, { PropTypes } from 'react';
 
 const MovieListItem = ({ movie, onRemove }) => {
   return (
-    <li key={movie.imdbID}>
+    <li>
       {movie.Title}
       ({movie.Year})
-      <button onClick={onRemove}>Remove</button>
+      <button
+        onClick={onRemove(movie)}
+      >Remove</button>
     </li>
   );
-}
+};
 
 MovieListItem.propTypes = {
   movie: PropTypes.shape({

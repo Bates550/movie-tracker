@@ -4,19 +4,18 @@ import SearchBar from './SearchBar/SearchBar.jsx';
 
 import { search } from './endpoints/search';
 import movies from './exampleData'
-import MovieListItem from './MovieListItem';
+import MovieList from './MovieList';
 
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.addMovie = this.addMovie.bind(this);
     this.state = {
       movieList: [],
       searchResults: [],
     };
   }
 
-  addMovie(movieData) {
+  addMovie = (movieData) => {
     const movieNotInList = !this.isMovieInList(movieData);
     if (movieNotInList) {
       this.updateMovieList(movieData);
@@ -56,24 +55,23 @@ class App extends React.Component {
     });
   }
 
-  removeMovie(movieToRemove) {
-    const movieList = this.state.movieList.filter((movie) => {
-      return movie.imdbID !== movieToRemove.imdbID;
-    });
-    this.setState({ movieList });
+  removeMovie = (movieToRemove) => {
+    return () => {
+      const movieList = this.state.movieList.filter((movie) => {
+        return movie.imdbID !== movieToRemove.imdbID;
+      });
+      this.setState({ movieList });
+    }
   }
 
   render () {
+    console.log(this.state.movieList);
     return (
       <div>
-        <ul>
-          {this.state.movieList.map((movie) =>
-            <MovieListItem
-              movie={movie}
-              onRemove={removeMovie}
-            />
-          )}
-        </ul>
+        <MovieList
+          list={this.state.movieList}
+          onRemove={this.removeMovie}
+        />
         <SearchBar
           onChange={(input, resolve) => {
             if (input.length > 1) {
