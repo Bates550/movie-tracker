@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 
 class Suggestions extends React.Component {
@@ -61,6 +61,12 @@ class Suggestions extends React.Component {
                   <span>{rightSuggestionFragment}</span>
                 }
               </span>
+              <button
+                onClick={() => {
+                  debugger;
+                  onRemove(movie);
+                }}
+              >Remove</button>
             </li>
           );
         })}
@@ -70,9 +76,10 @@ class Suggestions extends React.Component {
 }
 
 Suggestions.propTypes = {
-  highlightedItem: React.PropTypes.number,
-  searchTerm: React.PropTypes.string.isRequired,
-  suggestions: React.PropTypes.array.isRequired
+  highlightedItem: PropTypes.number,
+  searchTerm: PropTypes.string.isRequired,
+  suggestions: PropTypes.array.isRequired,
+  onRemove: PropTypes.func.isRequired,
 };
 
 export default Suggestions;
