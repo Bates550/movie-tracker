@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import SearchBar from './SearchBar/SearchBar.jsx';
+import Suggestions from './Suggestions';
 
 import { search } from './endpoints/search';
 import movies from './exampleData'
@@ -91,6 +92,7 @@ class App extends React.Component {
               this.addMovie(data)
             }
           }}
+          Suggestions={Suggestions}
         />
       </div>
     )
