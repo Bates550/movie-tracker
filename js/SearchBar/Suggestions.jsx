@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 
 class Suggestions extends React.Component {
@@ -46,7 +46,6 @@ class Suggestions extends React.Component {
                 highlighted: highlightedItem === index || activeItem === index
               })}
               key={index}
-              onClick={() => this.props.onSelection(suggestion)}
               onMouseEnter={() => this.setState({activeItem: index})}
               onMouseDown={(e) => e.preventDefault()}
               onTouchStart={() => this.onTouchStart(index)}
@@ -61,6 +60,9 @@ class Suggestions extends React.Component {
                   <span>{rightSuggestionFragment}</span>
                 }
               </span>
+              <button
+                onClick={() => this.props.onSelection(suggestion)}
+              >Add</button>
             </li>
           );
         })}
@@ -70,9 +72,9 @@ class Suggestions extends React.Component {
 }
 
 Suggestions.propTypes = {
-  highlightedItem: React.PropTypes.number,
-  searchTerm: React.PropTypes.string.isRequired,
-  suggestions: React.PropTypes.array.isRequired
+  highlightedItem: PropTypes.number,
+  searchTerm: PropTypes.string.isRequired,
+  suggestions: PropTypes.array.isRequired,
 };
 
 export default Suggestions;
