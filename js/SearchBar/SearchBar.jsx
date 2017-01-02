@@ -1,6 +1,7 @@
 import 'es6-promise';
 import classNames from 'classnames';
 import React from 'react';
+import Suggestions from '../Suggestions';
 
 const keyCodes = {
   ENTER: 13,
@@ -105,7 +106,6 @@ class SearchBar extends React.Component {
   }
   render() {
     /*eslint-disable quotes*/
-    const { Suggestions } = this.props;
     return (
       <div className="search-bar-wrapper">
         <div className={classNames(
@@ -143,7 +143,9 @@ class SearchBar extends React.Component {
             searchTerm={this.state.searchTerm}
             suggestions={this.state.suggestions}
             highlightedItem={this.state.highlightedItem}
-            onSelection={this.onSelection.bind(this)} /> }
+            onSelection={this.onSelection.bind(this)} 
+          />
+        }
       </div>
     );
   }
@@ -157,7 +159,6 @@ SearchBar.propTypes = {
   onChange: React.PropTypes.func.isRequired,
   onSearch: React.PropTypes.func,
   placeholder: React.PropTypes.string,
-  Suggestions: React.PropTypes.func,
 };
 
 SearchBar.defaultProps = {

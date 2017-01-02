@@ -62,11 +62,8 @@ class Suggestions extends React.Component {
                 }
               </span>
               <button
-                onClick={() => {
-                  debugger;
-                  onRemove(movie);
-                }}
-              >Remove</button>
+                onClick={() => this.props.onSelection(suggestion)}
+              >Add</button>
             </li>
           );
         })}
@@ -79,7 +76,6 @@ Suggestions.propTypes = {
   highlightedItem: PropTypes.number,
   searchTerm: PropTypes.string.isRequired,
   suggestions: PropTypes.array.isRequired,
-  onRemove: PropTypes.func.isRequired,
 };
 
 export default Suggestions;

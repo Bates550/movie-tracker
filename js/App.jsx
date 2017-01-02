@@ -92,7 +92,6 @@ class App extends React.Component {
               this.addMovie(data)
             }
           }}
-          Suggestions={Suggestions}
         />
       </div>
     )
