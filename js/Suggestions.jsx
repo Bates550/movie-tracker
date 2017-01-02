@@ -46,7 +46,6 @@ class Suggestions extends React.Component {
                 highlighted: highlightedItem === index || activeItem === index
               })}
               key={index}
-              onClick={() => this.props.onSelection(suggestion)}
               onMouseEnter={() => this.setState({activeItem: index})}
               onMouseDown={(e) => e.preventDefault()}
               onTouchStart={() => this.onTouchStart(index)}
