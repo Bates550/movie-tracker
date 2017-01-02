@@ -1,7 +1,7 @@
 import 'es6-promise';
 import classNames from 'classnames';
 import React from 'react';
-import Suggestions from '../Suggestions';
+import Suggestions from './Suggestions';
 
 const keyCodes = {
   ENTER: 13,
