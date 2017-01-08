@@ -27,8 +27,9 @@ class Suggestions extends React.Component {
     this.touchedMoved = false;
   }
   render() {
-    const {highlightedItem, searchTerm, suggestions} = this.props;
+    const {highlightedItem, movieList, searchTerm, suggestions} = this.props;
     const {activeItem} = this.state;
+    const titles = movieList.map(movie => movie.Title);
     return (
       <ul
         className="search-bar-suggestions"
@@ -40,6 +41,8 @@ class Suggestions extends React.Component {
           const searchTermEndIndex = searchTermStartIndex + lowerSearchTerm.length;
           const leftSuggestionFragment = suggestion.substring(0, searchTermStartIndex);
           const rightSuggestionFragment = suggestion.substring(searchTermEndIndex);
+          const actionText = titles.includes(suggestion)
+           ? 'Remove' : 'Add';
           return (
             <li
               className={classNames({
@@ -60,9 +63,9 @@ class Suggestions extends React.Component {
                   <span>{rightSuggestionFragment}</span>
                 }
               </span>
-              <button
-                onClick={() => this.props.onSelection(suggestion)}
-              >Add</button>
+              <button onClick={() => this.props.onSelection(suggestion)}>
+                {actionText}
+              </button>
             </li>
           );
         })}
@@ -75,6 +78,8 @@ Suggestions.propTypes = {
   highlightedItem: PropTypes.number,
   searchTerm: PropTypes.string.isRequired,
   suggestions: PropTypes.array.isRequired,
+  onSelection: PropTypes.func.isRequired,
+  movieList: PropTypes.array.isRequired,
 };
 
 export default Suggestions;
