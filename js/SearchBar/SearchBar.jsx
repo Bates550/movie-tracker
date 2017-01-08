@@ -97,7 +97,7 @@ class SearchBar extends React.Component {
         break;
     }
   }
-  onAdd(suggestion) {
+  onUpdate(suggestion) {
     this.setState({value: suggestion}, () => this.search());
   }
   onSearch(e) {
@@ -143,8 +143,7 @@ class SearchBar extends React.Component {
             searchTerm={this.state.searchTerm}
             suggestions={this.state.suggestions}
             highlightedItem={this.state.highlightedItem}
-            onAdd={this.onAdd.bind(this)}
-            onRemove={this.onAdd.bind(this)}
+            onUpdate={this.onUpdate.bind(this)}
             movieList={this.props.movieList}
           />
         }

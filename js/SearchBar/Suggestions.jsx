@@ -21,7 +21,7 @@ class Suggestions extends React.Component {
   onTouchEnd(suggestion) {
     if (!this.touchedMoved) {
       setTimeout(() => {
-        this.props.onAdd(suggestion);
+        this.props.onUpdate(suggestion);
       }, 220);
     }
     this.touchedMoved = false;
@@ -41,16 +41,8 @@ class Suggestions extends React.Component {
           const searchTermEndIndex = searchTermStartIndex + lowerSearchTerm.length;
           const leftSuggestionFragment = suggestion.substring(0, searchTermStartIndex);
           const rightSuggestionFragment = suggestion.substring(searchTermEndIndex);
-          const actionButton = titles.includes(suggestion)
-           ?
-            <button
-              onClick={() => this.props.onRemove(suggestion)}
-            >Remove</button>
-           :
-            <button
-              onClick={() => this.props.onAdd(suggestion)}
-            >Add</button>
-          ;
+          const actionText = titles.includes(suggestion)
+           ? 'Remove' : 'Add';
           return (
             <li
               className={classNames({
@@ -71,7 +63,9 @@ class Suggestions extends React.Component {
                   <span>{rightSuggestionFragment}</span>
                 }
               </span>
-              {actionButton}
+              <button onClick={() => this.props.onUpdate(suggestion)}>
+                {actionText}
+              </button>
             </li>
           );
         })}
@@ -84,8 +78,7 @@ Suggestions.propTypes = {
   highlightedItem: PropTypes.number,
   searchTerm: PropTypes.string.isRequired,
   suggestions: PropTypes.array.isRequired,
-  onAdd: PropTypes.func.isRequired,
-  onRemove: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
   movieList: PropTypes.array.isRequired,
 };
 
