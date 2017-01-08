@@ -97,7 +97,7 @@ class SearchBar extends React.Component {
         break;
     }
   }
-  onSelection(suggestion) {
+  onAdd(suggestion) {
     this.setState({value: suggestion}, () => this.search());
   }
   onSearch(e) {
@@ -143,7 +143,9 @@ class SearchBar extends React.Component {
             searchTerm={this.state.searchTerm}
             suggestions={this.state.suggestions}
             highlightedItem={this.state.highlightedItem}
-            onSelection={this.onSelection.bind(this)} 
+            onAdd={this.onAdd.bind(this)}
+            onRemove={() => {}}
+            movieList={this.props.movieList}
           />
         }
       </div>
@@ -159,6 +161,7 @@ SearchBar.propTypes = {
   onChange: React.PropTypes.func.isRequired,
   onSearch: React.PropTypes.func,
   placeholder: React.PropTypes.string,
+  movieList: React.PropTypes.array.isRequired,
 };
 
 SearchBar.defaultProps = {

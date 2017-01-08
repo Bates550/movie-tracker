@@ -91,6 +91,7 @@ class App extends React.Component {
               this.addMovie(data)
             }
           }}
+          movieList={this.state.movieList}
         />
       </div>
     )
