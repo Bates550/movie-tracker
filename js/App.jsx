@@ -15,10 +15,6 @@ class App extends React.Component {
     };
   }
 
-  updateMovie = (movieData) => {
-    this.updateMovieList(movieData);
-  }
-
   isMovieInList(movieData) {
     const foundMovie = this.state.movieList.find((movie) => {
       return movie.imdbID === movieData.imdbID;
@@ -99,7 +95,7 @@ class App extends React.Component {
           onSearch={(title) => {
             const movie = this.findMovieInSearchResults(title);
             if (movie !== undefined) {
-              this.updateMovie(movie);
+              this.updateMovieList(movie);
             }
           }}
           movieList={this.state.movieList}
