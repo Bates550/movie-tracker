@@ -21,7 +21,7 @@ class Suggestions extends React.Component {
   onTouchEnd(suggestion) {
     if (!this.touchedMoved) {
       setTimeout(() => {
-        this.props.onUpdate(suggestion);
+        this.props.onSelection(suggestion);
       }, 220);
     }
     this.touchedMoved = false;
@@ -63,7 +63,7 @@ class Suggestions extends React.Component {
                   <span>{rightSuggestionFragment}</span>
                 }
               </span>
-              <button onClick={() => this.props.onUpdate(suggestion)}>
+              <button onClick={() => this.props.onSelection(suggestion)}>
                 {actionText}
               </button>
             </li>
@@ -78,7 +78,7 @@ Suggestions.propTypes = {
   highlightedItem: PropTypes.number,
   searchTerm: PropTypes.string.isRequired,
   suggestions: PropTypes.array.isRequired,
-  onUpdate: PropTypes.func.isRequired,
+  onSelection: PropTypes.func.isRequired,
   movieList: PropTypes.array.isRequired,
 };
 
