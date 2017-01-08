@@ -15,14 +15,8 @@ class App extends React.Component {
     };
   }
 
-  addMovie = (movieData) => {
-    const movieNotInList = !this.isMovieInList(movieData);
-    if (movieNotInList) {
-      this.updateMovieList(movieData);
-    } else {
-      // Set some info/error state to show error to user
-      console.log(`${movieData.Title} already exists in list`);
-    }
+  updateMovie = (movieData) => {
+    this.updateMovieList(movieData);
   }
 
   isMovieInList(movieData) {
@@ -33,7 +27,24 @@ class App extends React.Component {
   }
 
   updateMovieList(movieData) {
-    const updatedMovieList = this.state.movieList.concat(movieData);
+    const isMovieInList = this.isMovieInList(movieData);
+    const addToMovieList = (movieList, movieData) => {
+      return movieList.concat(movieData);
+    };
+    const removeFromMovieList = (movieList, movieData) => {
+      const result =  movieList.reduce((movies, movie) => {
+        if (movie.imdbID === movieData.imdbID) {
+          return movies;
+        }
+        return movies.concat(movie);
+      }, []);
+      return result;
+    }
+
+    const updatedMovieList = isMovieInList
+      ? removeFromMovieList(this.state.movieList, movieData)
+      : addToMovieList(this.state.movieList, movieData)
+    ;
     this.setState({ movieList: updatedMovieList });
   }
 
@@ -86,9 +97,9 @@ class App extends React.Component {
             }
           }}
           onSearch={(title) => {
-            const data = this.findMovieInSearchResults(title);
-            if (data !== undefined) {
-              this.addMovie(data)
+            const movie = this.findMovieInSearchResults(title);
+            if (movie !== undefined) {
+              this.updateMovie(movie);
             }
           }}
           movieList={this.state.movieList}

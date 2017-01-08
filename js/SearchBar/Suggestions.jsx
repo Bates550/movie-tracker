@@ -29,7 +29,7 @@ class Suggestions extends React.Component {
   render() {
     const {highlightedItem, movieList, searchTerm, suggestions} = this.props;
     const {activeItem} = this.state;
-    const titleList = movieList.map(movie => movie.Title);
+    const titles = movieList.map(movie => movie.Title);
     return (
       <ul
         className="search-bar-suggestions"
@@ -41,7 +41,7 @@ class Suggestions extends React.Component {
           const searchTermEndIndex = searchTermStartIndex + lowerSearchTerm.length;
           const leftSuggestionFragment = suggestion.substring(0, searchTermStartIndex);
           const rightSuggestionFragment = suggestion.substring(searchTermEndIndex);
-          const actionButton = titleList.includes(suggestion)
+          const actionButton = titles.includes(suggestion)
            ?
             <button
               onClick={() => this.props.onRemove(suggestion)}

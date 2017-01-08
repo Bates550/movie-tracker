@@ -144,7 +144,7 @@ class SearchBar extends React.Component {
             suggestions={this.state.suggestions}
             highlightedItem={this.state.highlightedItem}
             onAdd={this.onAdd.bind(this)}
-            onRemove={() => {}}
+            onRemove={this.onAdd.bind(this)}
             movieList={this.props.movieList}
           />
         }
